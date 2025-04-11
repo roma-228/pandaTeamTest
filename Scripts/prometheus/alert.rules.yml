@@ -1,0 +1,20 @@
+groups:
+  - name: container-alerts
+    rules:
+      - alert: HighCPUUsage
+        expr: rate(container_cpu_usage_seconds_total{name=~".+"}[1m]) > 0.8
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "Container is using too much CPU"
+
+      - alert: HighMemoryUsage
+        expr: container_memory_usage_bytes{name=~".+"} > 500000000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Container is using too much memory"

@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+
+
+    environment {
+        IMAGE_NAME = "panda-team-test"
+        CONTAINER_NAME = "panda-team-container"
+        APP_PORT = "5000"
+    }
+
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git url: 'https://github.com/roma-228/pandaTeamTest.git'
+            }
+        }
+
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh " docker build -t ${IMAGE_NAME} ."
+                }
+            }
+        }
+
+
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    sh """
+                         docker rm -f ${CONTAINER_NAME} || true
+                         docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:5000 ${IMAGE_NAME}
+                    """
+                }
+            }
+        }
+
+
+        stage('Test Application') {
+            steps {
+                script {
+                    echo "Waiting for the application to start..."
+                    sleep 5
+
+
+                    def response = sh(
+                        script: "curl -s -o /dev/null -w \"%{http_code}\" http://localhost:${APP_PORT}/hello",
+                        returnStdout: true
+                    ).trim()
+
+
+                    if (response == "200") {
+                        echo "Application is working! HTTP status code: 200"
+                    } else {
+                        error("Application test failed. HTTP status code: ${response}")
+                    }
+                }
+            }
+        }
+    }
+
+
+}
