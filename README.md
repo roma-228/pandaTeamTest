@@ -42,7 +42,7 @@
 
 ## 3.1. Creating Alert Rules in Prometheus
 Define alert rules to monitor important conditions.
-![AlertRules](https://drive.google.com/file/d/1an84xggSJTvmdBo9LGPvlSURyNc7TrKW/view?usp=sharing)
+![AlertRules](https://drive.google.com/uc?export=view&id=1an84xggSJTvmdBo9LGPvlSURyNc7TrKW)
 
 ## 3.2. Configuring Alertmanager
 1. **Alertmanager**
