@@ -2,7 +2,9 @@
 
 ## 1.1. Repository Setup
 1. Create a repository and build a simple Python web application.
+
 ![pipeline](https://drive.google.com/uc?export=view&id=1CmyqX3EfqUsSxbHAynMeWAq4qSv6VcvR)
+
 ## 1.2. Jenkins Configuration
 1. Install Jenkins on the server and set up the essential plugins.
 
